@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import type { ThreeElements } from "@react-three/fiber";
 import * as THREE from "three";
 
 const PINK = "#E27396";
@@ -10,7 +11,7 @@ export function Glossy({ color = PINK, metal = 0 }: { color?: string; metal?: nu
   return <meshPhysicalMaterial color={color} roughness={0.18} metalness={metal} clearcoat={1} clearcoatRoughness={0.08} sheen={0.4} />;
 }
 
-export function Heart(props: JSX.IntrinsicElements["group"]) {
+export function Heart(props: ThreeElements["group"]) {
   const geo = useMemo(() => {
     const s = new THREE.Shape();
     s.moveTo(0, -0.6);
@@ -27,7 +28,7 @@ export function Heart(props: JSX.IntrinsicElements["group"]) {
   );
 }
 
-export function Bag(props: JSX.IntrinsicElements["group"]) {
+export function Bag(props: ThreeElements["group"]) {
   return (
     <group {...props}>
       <mesh castShadow>
@@ -46,7 +47,7 @@ export function Bag(props: JSX.IntrinsicElements["group"]) {
   );
 }
 
-export function Lipstick(props: JSX.IntrinsicElements["group"]) {
+export function Lipstick(props: ThreeElements["group"]) {
   return (
     <group {...props}>
       <mesh position={[0, -0.45, 0]}>
@@ -65,7 +66,7 @@ export function Lipstick(props: JSX.IntrinsicElements["group"]) {
   );
 }
 
-export function Ring(props: JSX.IntrinsicElements["group"]) {
+export function Ring(props: ThreeElements["group"]) {
   return (
     <group {...props}>
       <mesh>
@@ -80,7 +81,7 @@ export function Ring(props: JSX.IntrinsicElements["group"]) {
   );
 }
 
-export function Sneaker(props: JSX.IntrinsicElements["group"]) {
+export function Sneaker(props: ThreeElements["group"]) {
   return (
     <group {...props}>
       <mesh position={[0, -0.25, 0]}>
@@ -99,7 +100,7 @@ export function Sneaker(props: JSX.IntrinsicElements["group"]) {
   );
 }
 
-export function Blob(props: JSX.IntrinsicElements["mesh"] & { color?: string }) {
+export function Blob(props: ThreeElements["mesh"] & { color?: string }) {
   const { color = BLUSH, ...rest } = props;
   return (
     <mesh {...rest}>
