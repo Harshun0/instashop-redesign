@@ -1,24 +1,52 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect } from "react";
+import Lenis from "lenis";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Categories, Hero, Marquee, Navbar } from "@/components/home/Top";
+import { InstagramShops } from "@/components/home/Shops";
+import { HowItWorks, Spotlight, Trending } from "@/components/home/Middle";
+import { Footer, Reviews, SellerCTA } from "@/components/home/Bottom";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Instashop — Your favourite Instagram shops, one place" },
+      { name: "description", content: "Discover and shop small Indian Instagram brands across fashion, beauty, jewellery and more. Sellers list free." },
+      { property: "og:title", content: "Instashop — Your favourite Instagram shops, one place" },
+      { property: "og:description", content: "Discover and shop small Indian Instagram brands. Sellers list free." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    gsap.registerPlugin(ScrollTrigger);
+    const lenis = new Lenis({ lerp: 0.1 });
+    lenis.on("scroll", ScrollTrigger.update);
+    const tick = (t: number) => lenis.raf(t * 1000);
+    gsap.ticker.add(tick);
+    gsap.ticker.lagSmoothing(0);
+    return () => { gsap.ticker.remove(tick); lenis.destroy(); };
+  }, []);
+
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <main className="overflow-x-clip">
+      <Navbar />
+      <Hero />
+      <Marquee />
+      <Categories />
+      <InstagramShops />
+      <Trending />
+      <Spotlight />
+      <HowItWorks />
+      <SellerCTA />
+      <Reviews />
+      <Footer />
+    </main>
   );
 }
