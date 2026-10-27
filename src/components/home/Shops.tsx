@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Heart, Search } from "lucide-react";
 import { categories, formatK, shops, type Shop } from "@/data/shops";
@@ -78,6 +78,8 @@ export function InstagramShops() {
   const [cat, setCat] = useState<string>("All");
   const [q, setQ] = useState("");
   const [sort, setSort] = useState<Sort>("Trending");
+  const [showAll, setShowAll] = useState(false);
+  useEffect(() => setShowAll(false), [cat, q, sort]);
   const list = useMemo(() => {
     let l = shops.filter((s) => (cat === "All" || s.category === cat) && s.handle.includes(q.toLowerCase().replace("@", "")));
     l = [...l].sort((a, b) =>
@@ -135,12 +137,26 @@ export function InstagramShops() {
         <motion.div layout className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           <AnimatePresence mode="popLayout">
             {list.map((s, i) => (
-              <motion.div key={s.handle} layout initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.9 }} viewport={{ once: true }} transition={{ delay: (i % 4) * 0.06 }}>
+              <motion.div
+                key={s.handle}
+                layout
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                viewport={{ once: true }}
+                transition={{ delay: (i % 4) * 0.06 }}
+                className={cn(i >= 4 && !showAll && "hidden sm:block")}
+              >
                 <ShopCard shop={s} />
               </motion.div>
             ))}
           </AnimatePresence>
         </motion.div>
+        {!showAll && list.length > 4 && (
+          <div className="mt-6 flex justify-center sm:hidden">
+            <button onClick={() => setShowAll(true)} className="rounded-full bg-foreground px-6 py-3 text-sm font-semibold text-background">Show more</button>
+          </div>
+        )}
         {list.length === 0 && <p className="mt-10 text-center text-muted-foreground">No shops match that yet.</p>}
       </div>
     </section>

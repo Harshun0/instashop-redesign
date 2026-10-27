@@ -2,6 +2,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { Star } from "lucide-react";
 import { InstagramIcon, Reveal } from "./primitives";
+import { SellerDialog } from "./SellerDialog";
 import { images } from "@/data/shops";
 import { cn } from "@/lib/utils";
 
@@ -24,7 +25,9 @@ export function SellerCTA() {
             Turn your followers into <span className="font-serif font-medium italic text-amaranth">customers.</span>
           </h2>
         </Reveal>
-        <a href="#" className="shimmer mt-10 inline-block rounded-full bg-primary px-8 py-4 text-lg font-semibold text-primary-foreground shadow-glow">Open your shop free</a>
+        <SellerDialog>
+          <button className="shimmer mt-10 inline-block rounded-full bg-primary px-8 py-4 text-lg font-semibold text-primary-foreground shadow-glow">Open your shop free</button>
+        </SellerDialog>
       </div>
     </section>
   );
@@ -46,13 +49,13 @@ export function Reviews() {
       <Reveal className="mx-auto mb-12 max-w-7xl px-5">
         <h2 className="text-5xl font-extrabold sm:text-7xl">Loved by <span className="font-serif font-medium italic text-primary">both sides</span></h2>
       </Reveal>
-      <div className="pause-hover flex">
-        <div className="marquee-track flex shrink-0 gap-6 py-6 pr-6" style={{ ["--marquee-dur" as string]: "50s" }}>
+      <div className="pause-hover flex" style={{ maskImage: "linear-gradient(to right, transparent, black 6%, black 94%, transparent)" }}>
+        <div className="marquee-track flex shrink-0 gap-4 py-6 pr-4 sm:gap-6 sm:pr-6" style={{ ["--marquee-dur" as string]: "50s" }}>
           {[...reviews, ...reviews].map(([n, t, k], i) => (
-            <figure key={i} className={cn("w-72 shrink-0 bg-card p-4 pb-6 shadow-card", i % 2 ? "rotate-2" : "-rotate-2")}>
+            <figure key={i} className={cn("w-56 shrink-0 bg-card p-4 pb-6 shadow-card sm:w-72", i % 2 ? "sm:rotate-2" : "sm:-rotate-2")}>
               <img src={pics[i % pics.length]} alt="" loading="lazy" className="aspect-square w-full object-cover" />
               <div className="mt-3 flex gap-0.5 text-gold">{Array.from({ length: 5 }).map((_, s) => <Star key={s} className="h-4 w-4 fill-current" />)}</div>
-              <blockquote className="mt-2 font-serif text-lg italic leading-snug">"{t}"</blockquote>
+              <blockquote className="mt-2 font-serif text-base italic leading-snug sm:text-lg">"{t}"</blockquote>
               <figcaption className="mt-3 flex items-center justify-between text-sm font-semibold">
                 {n}
                 <span className={cn("rounded-full px-2 py-0.5 text-xs", k === "seller" ? "bg-secondary text-secondary-foreground" : "bg-blush")}>{k}</span>
@@ -71,9 +74,9 @@ export function Footer() {
   const y = useTransform(scrollYProgress, [0, 1], ["60%", "0%"]);
   const cols = { Shop: ["New in", "Trending", "Categories", "Gift cards"], Sellers: ["Start selling", "Pricing", "Seller guide", "Success stories"], Help: ["Orders", "Returns", "Contact", "FAQ"] };
   return (
-    <footer ref={ref} className="relative overflow-hidden bg-gradient-to-b from-background to-blush pb-28 pt-20 md:pb-0">
-      <div className="mx-auto grid max-w-7xl gap-10 px-5 md:grid-cols-[1.4fr_repeat(3,1fr)]">
-        <div>
+    <footer ref={ref} className="relative overflow-hidden bg-gradient-to-b from-background to-blush pb-20 pt-16 md:pb-0 md:pt-20">
+      <div className="mx-auto grid max-w-7xl grid-cols-2 gap-x-6 gap-y-10 px-5 sm:gap-x-10 md:grid-cols-[1.4fr_repeat(3,1fr)]">
+        <div className="col-span-2 md:col-span-1">
           <p className="font-display text-3xl font-extrabold">Get the drop first.</p>
           <form onSubmit={(e) => e.preventDefault()} className="mt-4 flex max-w-sm rounded-full bg-card p-1.5 shadow-card">
             <input type="email" required placeholder="you@email.com" aria-label="Email" className="flex-1 bg-transparent px-4 text-sm outline-none" />
@@ -94,7 +97,7 @@ export function Footer() {
           </div>
         ))}
       </div>
-      <motion.p style={{ y }} aria-hidden className="mt-16 select-none whitespace-nowrap text-center font-display text-[19vw] font-extrabold leading-[0.8] text-primary">
+      <motion.p style={{ y }} aria-hidden className="mt-12 select-none whitespace-nowrap text-center font-display text-[15vw] font-extrabold leading-[0.8] text-primary sm:mt-16 sm:text-[19vw]">
         INSTASHOP
       </motion.p>
     </footer>

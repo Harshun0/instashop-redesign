@@ -64,7 +64,6 @@ export const categories: { name: Category; count: number; image: string }[] = [
   { name: "Home Decor", count: 190, image: fashion },
   { name: "Gifting", count: 160, image: jewellery },
   { name: "Accessories", count: 350, image: beauty },
-  { name: "Handmade", count: 280, image: footwear },
 ];
 
 export const formatK = (n: number) => (n >= 1000 ? `${(n / 1000).toFixed(n >= 100000 ? 0 : 1)}K` : `${n}`);

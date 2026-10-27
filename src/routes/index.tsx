@@ -3,9 +3,10 @@ import { useEffect } from "react";
 import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Categories, Hero, Marquee, Navbar } from "@/components/home/Top";
+import { AnnouncementBar, Categories, Hero, Marquee, Navbar } from "@/components/home/Top";
 import { InstagramShops } from "@/components/home/Shops";
 import { HowItWorks, Spotlight, Trending } from "@/components/home/Middle";
+import { CounterPicks } from "@/components/home/Counter";
 import { Footer, Reviews, SellerCTA } from "@/components/home/Bottom";
 
 export const Route = createFileRoute("/")({
@@ -36,12 +37,14 @@ function Index() {
 
   return (
     <main className="overflow-x-clip">
+      <AnnouncementBar />
       <Navbar />
       <Hero />
       <Marquee />
       <Categories />
       <InstagramShops />
       <Trending />
+      <CounterPicks />
       <Spotlight />
       <HowItWorks />
       <SellerCTA />

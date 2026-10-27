@@ -1,31 +1,6 @@
-import { lazy, Suspense, useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { motion, useInView, animate } from "framer-motion";
 import { cn } from "@/lib/utils";
-
-export function useMounted() {
-  const [m, setM] = useState(false);
-  useEffect(() => setM(true), []);
-  return m;
-}
-
-export function useReducedMotion() {
-  const [r, setR] = useState(false);
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setR(mq.matches);
-  }, []);
-  return r;
-}
-
-export const HeroScene = lazy(() => import("@/components/three/HeroScene"));
-export const SpotlightScene = lazy(() => import("@/components/three/SpotlightScene"));
-
-export function ClientCanvas({ children, fallback }: { children: ReactNode; fallback?: ReactNode }) {
-  const mounted = useMounted();
-  const reduced = useReducedMotion();
-  if (!mounted || reduced) return <>{fallback}</>;
-  return <Suspense fallback={fallback}>{children}</Suspense>;
-}
 
 export function Reveal({ children, delay = 0, className, y = 40 }: { children: ReactNode; delay?: number; className?: string; y?: number }) {
   return (
