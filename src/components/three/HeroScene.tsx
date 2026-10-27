@@ -25,7 +25,7 @@ function Rig() {
     g.rotation.x += (-state.pointer.y * 0.2 - g.rotation.x) * k;
     refs.current.forEach((r, i) => {
       if (!r) return;
-      const it = items[i];
+      const it = items[i]!;
       r.position.set(
         it.pos[0] + (it.scatter[0] - it.pos[0]) * p * 0.8,
         it.pos[1] + (it.scatter[1] - it.pos[1]) * p * 0.8,

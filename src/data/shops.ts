@@ -16,12 +16,12 @@ export interface Shop {
   followers: number;
   instagramUrl: string;
   products: Product[];
-  isNew?: boolean;
+  isNew?: boolean | undefined;
   trending?: number;
 }
 
 const pool = [fashion, beauty, jewellery, footwear];
-const pick = (i: number) => pool[i % pool.length];
+const pick = (i: number): string => pool[i % pool.length]!;
 
 const raw: [string, string, Category, number, number, boolean?][] = [
   ["Gulabo Studio", "gulabo.studio", "Fashion", 128000, 98],
