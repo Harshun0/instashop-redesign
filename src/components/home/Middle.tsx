@@ -11,7 +11,7 @@ const products = shops.flatMap((s, i) => (i < 8 ? [{ ...s.products[0], shop: s }
 
 function ProductCard({ p }: { p: (typeof products)[number] }) {
   const [liked, setLiked] = useState(false);
-  const alt = shops[(shops.indexOf(p.shop) + 2) % shops.length].avatar;
+  const alt = shops[(shops.indexOf(p.shop) + 2) % shops.length]!.avatar;
   return (
     <Tilt max={8} className="group w-[260px] shrink-0 rounded-[1.75rem] bg-card p-3 shadow-card sm:w-[300px]">
       <div className="relative aspect-[4/5] overflow-hidden rounded-[1.25rem]">
