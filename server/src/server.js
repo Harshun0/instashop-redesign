@@ -10,7 +10,18 @@ const allowedOrigins = (process.env.FRONTEND_URL || "http://localhost:8080")
   .split(",")
   .map((o) => o.trim());
 
-app.use(cors({ origin: allowedOrigins }));
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) return callback(null, true);
+      // Allow any Vercel preview/production deployment of this project
+      // (each deploy gets a unique *.vercel.app subdomain).
+      if (/^https:\/\/[a-z0-9-]+\.vercel\.app$/i.test(origin)) return callback(null, true);
+      return callback(new Error("Not allowed by CORS"));
+    },
+  }),
+);
 app.use(express.json());
 
 app.get("/health", (_req, res) => res.json({ ok: true }));
