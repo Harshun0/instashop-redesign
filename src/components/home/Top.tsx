@@ -238,7 +238,6 @@ export function Hero() {
       <div className="sticky top-0 h-[100svh] overflow-hidden bg-background">
         <video
           ref={videoRef}
-          src="https://res.cloudinary.com/drvug594q/video/upload/v1793118826/Gift_box_opening_with_products_20261027215936_ljc215.mp4"
           autoPlay
           loop
           muted
@@ -250,7 +249,10 @@ export function Hero() {
             WebkitMaskRepeat: "no-repeat",
             maskRepeat: "no-repeat",
           }}
-        />
+        >
+          <source src="https://res.cloudinary.com/drvug594q/video/upload/v1793172854/Mobile_u4gqsn.mp4" media="(max-width: 767px)" />
+          <source src="https://res.cloudinary.com/drvug594q/video/upload/v1793172851/Desktop_urxqob.mp4" />
+        </video>
         <svg ref={svgRef} aria-hidden className="pointer-events-none absolute inset-0 h-full w-full">
           <defs>
             <mask id="heroWordMask" maskUnits="userSpaceOnUse">
